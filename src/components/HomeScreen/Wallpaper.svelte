@@ -22,6 +22,6 @@
 		background-repeat: no-repeat;
 		background-size: cover;
 		background-position: center;
-		background-image: url(/wallpapers/1-2.png);
+		background-image: url(/wallpapers/1-2.webp);
 	}
 </style>
