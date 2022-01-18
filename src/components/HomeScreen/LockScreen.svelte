@@ -1,15 +1,20 @@
 <script lang="ts">
-	import { createTimerStore } from '🪆/stores/time.store';
 	import { format } from 'date-fns';
-	import UnlockedIcon from '~icons/bi/unlock-fill';
-	import FlashLightIcon from '~icons/ion/ios-flashlight';
-	import CameraIcon from '~icons/ion/ios-camera';
 	import { draggable } from 'svelte-drag';
+	import { bounceOut, sineOut } from 'svelte/easing';
+	import { tweened } from 'svelte/motion';
+	import UnlockedIcon from '~icons/bi/unlock-fill';
+	import CameraIcon from '~icons/ion/ios-camera';
+	import FlashLightIcon from '~icons/ion/ios-flashlight';
+	import { createTimerStore } from '🪆/stores/time.store';
+	import { throttle } from '🪆/utils/throttle';
+
+	let bodyHeight = document.body.offsetHeight;
 
 	const time = createTimerStore(1000);
 
-	let bodyHeight = document.body.offsetHeight;
-	let backdropOpacity = 0;
+	const backdropOpacity = tweened(0, { duration: 300 });
+	const swipeProgress = tweened(0, { easing: bounceOut, duration: 600 });
 
 	$: formattedTime = format($time, 'h:mm');
 	$: secondaryTime = format($time, 'EEEE, MMMM d');
@@ -18,14 +23,34 @@
 		const distanceSwiped = -offsetY;
 		const ratio = distanceSwiped / bodyHeight;
 
-		backdropOpacity = Math.min(1, Math.max(0, ratio));
+		swipeProgress.set(offsetY, { duration: 0 });
+		backdropOpacity.set(Math.min(1, Math.max(0, ratio)), { duration: 0 });
+	}
+
+	function onSwipeEnd({ offsetY }: { offsetY: number }) {
+		const distanceSwiped = -offsetY;
+		const ratio = distanceSwiped / bodyHeight;
+
+		if (ratio < 1 / 2.5) {
+			$swipeProgress = 0;
+			$backdropOpacity = 0;
+		} else {
+			swipeProgress.set(-bodyHeight, { easing: sineOut, duration: 300 });
+			$backdropOpacity = 1;
+		}
 	}
 </script>
 
 <section
 	class="lock-screen"
-	style:--opacity={backdropOpacity + ''}
-	use:draggable={{ axis: 'y', bounds: { top: -1000 }, onDrag: onSwipe }}
+	style:--opacity={$backdropOpacity + ''}
+	use:draggable={{
+		axis: 'y',
+		position: { y: $swipeProgress, x: 0 },
+		bounds: { top: -1000 },
+		onDrag: throttle(onSwipe, 50),
+		onDragEnd: onSwipeEnd,
+	}}
 >
 	<div class="lock-icon">
 		<UnlockedIcon />
@@ -78,7 +103,10 @@
 
 			backdrop-filter: blur(calc(100px * var(--opacity)));
 
-			// opacity: var(--opacity);
+			backface-visibility: hidden;
+			perspective: 1000;
+			transform: translate3d(0, 0, 0);
+			transform: translateZ(0);
 		}
 	}
 
