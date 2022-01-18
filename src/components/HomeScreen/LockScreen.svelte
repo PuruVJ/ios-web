@@ -4,14 +4,29 @@
 	import UnlockedIcon from '~icons/bi/unlock-fill';
 	import FlashLightIcon from '~icons/ion/ios-flashlight';
 	import CameraIcon from '~icons/ion/ios-camera';
+	import { draggable } from 'svelte-drag';
 
 	const time = createTimerStore(1000);
 
+	let bodyHeight = document.body.offsetHeight;
+	let backdropOpacity = 0;
+
 	$: formattedTime = format($time, 'h:mm');
 	$: secondaryTime = format($time, 'EEEE, MMMM d');
+
+	function onSwipe({ offsetY }: { offsetY: number }) {
+		const distanceSwiped = -offsetY;
+		const ratio = distanceSwiped / bodyHeight;
+
+		backdropOpacity = Math.min(1, Math.max(0, ratio));
+	}
 </script>
 
-<section class="lock-screen">
+<section
+	class="lock-screen"
+	style:--opacity={backdropOpacity + ''}
+	use:draggable={{ axis: 'y', bounds: { top: -1000 }, onDrag: onSwipe }}
+>
 	<div class="lock-icon">
 		<UnlockedIcon />
 	</div>
@@ -38,6 +53,10 @@
 
 <style lang="scss">
 	.lock-screen {
+		--opacity: 0;
+
+		position: relative;
+
 		height: 100%;
 		width: 100%;
 
@@ -49,6 +68,18 @@
 		gap: 2rem;
 
 		color: white;
+
+		&::before {
+			content: '';
+
+			position: absolute;
+			inset: 0;
+			z-index: -1;
+
+			backdrop-filter: blur(calc(100px * var(--opacity)));
+
+			// opacity: var(--opacity);
+		}
 	}
 
 	.lock-icon {

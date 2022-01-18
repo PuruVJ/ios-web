@@ -23,6 +23,8 @@
 		"vite": "^2.7.12"
 	},
 	"dependencies": {
-		"date-fns": "^2.28.0"
+		"date-fns": "^2.28.0",
+		"longpress-svelte": "^1.0.0",
+		"svelte-drag": "^2.4.0"
 	}
 }

@@ -6,10 +6,12 @@ specifiers:
   '@sveltejs/vite-plugin-svelte': ^1.0.0-next.34
   autoprefixer: ^10.4.2
   date-fns: ^2.28.0
+  longpress-svelte: ^1.0.0
   postcss: ^8.4.5
   sass: ^1.48.0
   svelte: ^3.46.2
   svelte-check: ^2.3.0
+  svelte-drag: ^2.4.0
   svelte-preprocess: ^4.10.2
   typescript: ^4.5.4
   unplugin-icons: ^0.13.0
@@ -17,6 +19,8 @@ specifiers:
 
 dependencies:
   date-fns: 2.28.0
+  longpress-svelte: 1.0.0
+  svelte-drag: 2.4.0
 
 devDependencies:
   '@iconify-json/bi': 1.0.10
@@ -640,6 +644,10 @@ packages:
       p-locate: 5.0.0
     dev: true
 
+  /longpress-svelte/1.0.0:
+    resolution: {integrity: sha512-szGKbBpQxwjcl2bHWJShM7pRi/944muMQtzNHbn870pAdh1DIWZr1ExS2+ncL47MlR43HbBM1WnQ1uIA44CVrg==}
+    dev: false
+
   /magic-string/0.25.7:
     resolution: {integrity: sha512-4CrMT5DOHTDk4HYDlzmwu4FVCcIYI8gauveasrdCu2IKIFOJ3f0v/8MDGJCDL9oD2ppz/Av1b0Nj345H9M+XIA==}
     dependencies:
@@ -967,6 +975,10 @@ packages:
       - stylus
       - sugarss
     dev: true
+
+  /svelte-drag/2.4.0:
+    resolution: {integrity: sha512-9WY3L1Y+3sAHufb4e7Ml4zHZWkTXL8DfB3NYovOL1ygImBFuMfHEhoeqo/qpWSU/wjO53nzn+T3nu9lHqATAyg==}
+    dev: false
 
   /svelte-hmr/0.14.9_svelte@3.46.2:
     resolution: {integrity: sha512-bKE9+4qb4sAnA+TKHiYurUl970rjA0XmlP9TEP7K/ncyWz3m81kA4HOgmlZK/7irGK7gzZlaPDI3cmf8fp/+tg==}
