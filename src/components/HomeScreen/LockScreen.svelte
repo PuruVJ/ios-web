@@ -31,7 +31,7 @@
 		const distanceSwiped = -offsetY;
 		const ratio = distanceSwiped / bodyHeight;
 
-		if (ratio < 1 / 2.5) {
+		if (ratio < 1 / 4) {
 			$swipeProgress = 0;
 			$backdropOpacity = 0;
 		} else {
