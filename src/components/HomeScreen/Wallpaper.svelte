@@ -1,8 +1,13 @@
 <script lang="ts">
+	import { theme } from '🪆/stores/theme.store';
 	import { UIElevation } from '🪆/types';
 </script>
 
-<div class="background-cover" style:z-index={UIElevation.WALLPAPER} />
+<div
+	class="background-cover"
+	style:background-image="url(/wallpapers/1-{$theme.scheme === 'dark' ? 1 : 2}.webp)"
+	style:z-index={UIElevation.WALLPAPER}
+/>
 
 <style lang="scss">
 	.background-cover {
