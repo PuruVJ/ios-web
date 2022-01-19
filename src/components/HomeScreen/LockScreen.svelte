@@ -101,6 +101,9 @@
 			inset: 0;
 			z-index: -1;
 
+			width: 100.1%;
+			height: 100%;
+
 			backdrop-filter: blur(calc(100px * var(--opacity)));
 
 			backface-visibility: hidden;
