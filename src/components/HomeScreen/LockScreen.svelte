@@ -162,6 +162,12 @@
 				hsla(var(--system-color-grey-800-hsl), 0.4)
 			);
 			backdrop-filter: blur(10px) contrast(0.8);
+
+			transition: transform 0.15s ease;
+
+			&:active {
+				transform: scale(0.85);
+			}
 		}
 	}
 </style>
