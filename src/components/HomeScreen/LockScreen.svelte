@@ -9,7 +9,7 @@
 	import { createTimerStore } from '🪆/stores/time.store';
 	import { throttle } from '🪆/utils/throttle';
 
-	let bodyHeight = document.body.offsetHeight;
+	const bodyHeight = document.body.offsetHeight;
 
 	const time = createTimerStore(1000);
 
