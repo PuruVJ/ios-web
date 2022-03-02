@@ -9,7 +9,7 @@
 		"check": "svelte-check --tsconfig ./tsconfig.json"
 	},
 	"stackblitz": {
-		"startCommand": "dev"
+		"startCommand": "npm run dev"
 	},
 	"devDependencies": {
 		"@iconify-json/bi": "^1.0.10",
